@@ -1,0 +1,39 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    sourceCompatibility = '17'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+	implementation('org.elasticmq:elasticmq-rest-sqs_2.13:1.5.4')
+    implementation('ch.qos.logback:logback-classic:1.4.14')
+    implementation('org.slf4j:slf4j-api:2.0.11')
+
+    implementation(platform('com.amazonaws:aws-java-sdk-bom:1.12.637'))
+    // last version when the bug does not occur
+//    implementation(platform('com.amazonaws:aws-java-sdk-bom:1.12.583'))
+
+    implementation('com.amazonaws:aws-java-sdk-sqs')
+
+    testImplementation(platform('org.junit:junit-bom:5.10.1'))
+    testImplementation('org.junit.jupiter:junit-jupiter')
+    testImplementation('org.awaitility:awaitility:4.2.0')
+}
+
+application {
+    mainClass = 'com.example.demo.DemoApplication'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
